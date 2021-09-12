@@ -18,7 +18,7 @@
 						'synced',
 						'version-conflict',
 						'error'
-					].indexOf(value) !== -1
+					].indexOf(value) !== -1;
 				}
 			}
 		},
@@ -27,7 +27,7 @@
 		data() {
 			return {
 				newNote: '',
-			}
+			};
 		},
 	};
 </script>
