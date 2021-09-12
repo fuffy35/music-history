@@ -3,6 +3,9 @@
 import { createStore } from 'vuex';
 import axios from 'axios';
 
+// https://vuex.vuejs.org/guide/structure.html
+// refer back to that when this starts getting bigger and i need to split it into modules.
+
 /* --------------------------------------------------------------------------------------------------------- */
 
 const jsonHackFix = htmlEntityJson => {
@@ -28,19 +31,19 @@ const getMusicHistory = async() => {
 
 /* --------------------------------------------------------------------------------------------------------- */
 
-const state = {
+export const state = {
 	playbacks: []
 };
 
 /* --------------------------------------------------------------------------------------------------------- */
 
-const getters = {
+export const getters = {
 	playbacks: state => state.playbacks
 };
 
 /* --------------------------------------------------------------------------------------------------------- */
 
-const actions = {
+export const actions = {
 	async getPlaybacks({ commit }) {
 		try {
 			const musicHistory = await getMusicHistory();
@@ -54,7 +57,7 @@ const actions = {
 
 /* --------------------------------------------------------------------------------------------------------- */
 
-const mutations = {
+export const mutations = {
 	SET_PLAYBACKS(state, payload) {
 		state.playbacks = payload;
 	}
