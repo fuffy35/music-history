@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------------------------------------- */
 
-import { state, getters, actions, mutations, utilityForTesting } from '@/store/index.js';
+import { getters, actions, mutations, utilityForTesting } from '@/store/index.js';
 import axios from 'axios';
 
 jest.mock('axios');
@@ -51,11 +51,11 @@ describe('store.js', () => {
 			.replace(/&amp;/g, "&");
 
 		dates = [
-			{ "dateString": "2021-09-01" },
-			{ "dateString": "2021-09-02" },
-			{ "dateString": "2021-09-03" },
-			{ "dateString": "2021-09-04" },
-			{ "dateString": "2021-09-05" }
+			{ dateString: '2021-09-01' },
+			{ dateString: '2021-09-02' },
+			{ dateString: '2021-09-03' },
+			{ dateString: '2021-09-04' },
+			{ dateString: '2021-09-05' }
 		];
 
 		datesString = JSON.stringify(dates);
@@ -100,31 +100,31 @@ describe('store.js', () => {
 			const datesOriginal = [...dates];
 			const datesProcessed = [
 				{
-					dateString: "2021-09-05",
+					dateString: '2021-09-05',
 					date: new Date(2021, 8, 5),
 					startTimestamp: new Date(2021, 8, 5, startBufferHours),
 					endTimestamp: new Date(2021, 8, 5, endBufferHours)
 				},
 				{
-					dateString: "2021-09-04",
+					dateString: '2021-09-04',
 					date: new Date(2021, 8, 4),
 					startTimestamp: new Date(2021, 8, 4, startBufferHours),
 					endTimestamp: new Date(2021, 8, 4, endBufferHours)
 				},
 				{
-					dateString: "2021-09-03",
+					dateString: '2021-09-03',
 					date: new Date(2021, 8, 3),
 					startTimestamp: new Date(2021, 8, 3, startBufferHours),
 					endTimestamp: new Date(2021, 8, 3, endBufferHours)
 				},
 				{
-					dateString: "2021-09-02",
+					dateString: '2021-09-02',
 					date: new Date(2021, 8, 2),
 					startTimestamp: new Date(2021, 8, 2, startBufferHours),
 					endTimestamp: new Date(2021, 8, 2, endBufferHours)
 				},
 				{
-					dateString: "2021-09-01",
+					dateString: '2021-09-01',
 					date: new Date(2021, 8, 1),
 					startTimestamp: new Date(2021, 8, 1, startBufferHours),
 					endTimestamp: new Date(2021, 8, 1, endBufferHours)
@@ -249,7 +249,7 @@ describe('store.js', () => {
 
 		test('addBookendTimes with non-midnight date', () => {
 			const originalDateData = {
-				dateString: displayedDateData.dateString,
+				//dateString: displayedDateData.dateString,
 				date: new Date(displayedDateData.date.getTime() + 5*60*60*1000) // add 5 hours.
 			};
 			utilityForTesting.addBookendTimes(originalDateData);

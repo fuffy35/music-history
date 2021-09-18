@@ -3,7 +3,8 @@
 // i'm sure there's a better way to do this, or a library or something.
 
 /* --------------------------------------------------------------------------------------------------------- */
-
+	// date -> string.
+/* --------------------------------------------------------------------------------------------------------- */
 function formatDate(date) { /* yyyy-mm-dd */
 	// fuffy35: and then what is e.g., september 16, 2021? 'formatDateHuman'? lol. idk.
 	// fuffy35: formatDateNumeric, formatDateText... and default to numeric (for plain formatDate())?
@@ -23,7 +24,7 @@ function formatTime(date, is24Hour = false) {
 		hour = `${hour < 10 ? '0' : ''}${hour}`;
 	}
 	else {
-		amPm = ` ${(hour <= 11 ? "am" : "pm")}`;
+		amPm = ` ${(hour <= 11 ? 'am' : 'pm')}`;
 		hour = hour % 12;
 		if (hour === 0) { hour = 12; }
 		hour = `${hour < 10 ? '0' : ''}${hour}`;
@@ -47,7 +48,8 @@ const formatDateTime12Hour = date => formatDateTime(date, false);
 const formatDateTime24Hour = date => formatDateTime(date, true);
 
 /* --------------------------------------------------------------------------------------------------------- */
-
+	// string -> date.
+/* --------------------------------------------------------------------------------------------------------- */
 function stringToDate(dateString) { /* yyyy-mm-dd */
 	let year, month, day;
 	[/* yyyy-mm-dd */, year, month, day] = dateString.match(/(\d{4})-(\d{2})-(\d{2})/);
@@ -63,7 +65,8 @@ function jsonDateTimeReviver(key, value) {
 }
 
 /* --------------------------------------------------------------------------------------------------------- */
-
+	// date manipulation.
+/* --------------------------------------------------------------------------------------------------------- */
 function todayAtMidnight() {
 	return new Date(new Date().setHours(0,0,0,0));
 }

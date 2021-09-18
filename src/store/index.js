@@ -46,11 +46,13 @@ async function getMusicHistory(dateData) {
 const oneHourInMilliseconds = 60*60*1000;
 function addBookendTimes(dateData) {
 	if (!('date' in dateData)) {
-		const date = utility.date.stringToDate(dateData.dateString);
-		dateData.date = date;
+		dateData.date = utility.date.stringToDate(dateData.dateString);
 	}
 	else {
 		dateData.date.setHours(0, 0, 0, 0);
+
+		// this is not (currently) needed but object consistency makes my brain happier:
+		dateData.dateString = utility.date.formatDate(dateData.date);
 	}
 
 	dateData.startTimestamp = new Date(dateData.date.getTime() - oneHourInMilliseconds);
@@ -63,7 +65,7 @@ export const utilityForTesting = {
 
 /* --------------------------------------------------------------------------------------------------------- */
 
-export const state = {
+const state = {
 	dates: [],
 	displayedDate: null,
 	playbacks: [],
