@@ -1,62 +1,98 @@
 <template>
-	<div class="home">
-		<HelloWorld msg="Welcome to Your Vue.js App"/>
-	</div>
 	<div class="columns">
-		<div class="column">
-			hi
+		<div class="column is-narrow">
+			<Dates header="Song Dates" />
 		</div>
-		<div class="column">
-			hi
+		<div class="column section-border playbacks">
+			<h1 class="title is-4">Playbacks</h1>
+			<ul>
+				<li v-for="playback in playbacks" :key="playback.tempID" class="playback">
+					<span class="playbackTime" :class="{ differentDate: !isPlaybackOnDisplayedDate(playback) }">
+						{{ getPlaybackDisplayTime(playback) }}
+					</span>
+					{{ getPlaybackDisplayText(playback) }}
+				</li>
+			</ul>
 		</div>
-	</div>
-	<div>
-		<ul>
-			<li v-for="playback in playbacks" :key="playback.tempID">
-				{{ playback.artist }} ~ {{ playback.title }}
-			</li>
-		</ul>
+		<div class="lyric">
+			~ i wasn't meant to love like this, not without you ~
+		</div>
 	</div>
 </template>
 
 <script>
-	/*
-		{
-		album: "Album",
-		albumArtist: "Often the same as artist",
-		artist: "Artist",
-		computer: ..., (home or work)
-		dbCreated: "2021-09-11 15:34:09",
-		dbModified: null,
-		filepathRaw: "file://C:\...path...\filename.mp3",
-		filesize: 45616820,
-		filesizeNatural: "43.5 MB",
-		foobar2000version: "foobar2000 v1.3.10",
-		lengthEx: "30:00.072",
-		lengthSeconds: 1800,
-		songStarted: "2021-09-11 15:34:09",
-		tempID: 42,
-		title: "Song Title",
-		trackArtist: null,
-		trackNumber: null
-		},
-	*/
 	import { mapGetters, mapActions } from 'vuex';
-	import HelloWorld from '@/components/HelloWorld.vue';
+	import utility from '@/utility';
+	import Dates from '@/components/Dates.vue';
+	// import Playbacks from '@/components/Playbacks.vue'; // fuffy35: put playbacks into its own component.
 
 	export default {
 		name: 'Home',
 		components: {
-			HelloWorld
+			Dates
 		},
 		computed: {
-			...mapGetters(['playbacks'])
+			...mapGetters([
+				'displayedDate',
+				'playbacks'
+			]),
 		},
 		created() {
 			this.getPlaybacks();
 		},
 		methods: {
-			...mapActions(['getPlaybacks'])
+			...mapActions(['getPlaybacks']),
+			getPlaybackDisplayTime(playback) {
+				return utility.date.formatTime12Hour(playback.songStarted);
+			},
+			getPlaybackDisplayText(playback) {
+				return `${playback.artist ? playback.artist : '{no artist set}'} ~ ${playback.title}`;
+			},
+			isPlaybackOnDisplayedDate(playback) {
+				// fuffy35: consider dateReviver like dateTimeReviver.
+				const playbackDate = utility.date.formatDate(playback.songStarted);
+				return playbackDate === this.displayedDate.dateString;
+			}
 		}
 	};
 </script>
+
+<style scoped>
+	/* ------------------------------------------ */
+
+	.playbacks {
+		border-width: 0 0 0 1px;
+	}
+
+	.playbackTime {
+		color: var(--text-meta);
+		display: inline-block;
+		font-family: monospace;
+		margin-right: 1em;
+	}
+	.playbackTime.differentDate {
+		/* since i'm showing stuff from a bit before and after midnight... this is to differentiate. */
+		opacity: 0.55;
+	}
+
+	/* ------------------------------------------ */
+
+	.lyric {
+		writing-mode: vertical-rl;
+		text-orientation: mixed;
+		position: fixed;
+		right: 0.5em;
+		top: 30%;
+		/* rainbow text :3 */
+		background: -webkit-linear-gradient(
+			top,
+			#f00, #ffa500, #ff0, #0f0, #06c, #909,
+			#f00, #ffa500, #ff0, #0f0, #06c, #909,
+			#f00, #ffa500, #ff0, #0f0, #06c, #909
+		);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+
+	/* ------------------------------------------ */
+</style>

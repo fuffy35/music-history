@@ -1,10 +1,12 @@
 <template>
-	<div id="nav">
+	<div id="nav" class="nav section-border">
 		<router-link to="/">Home</router-link> |
 		<router-link to="/about">About</router-link> |
 		<router-link to="/404">404</router-link>
 	</div>
-	<router-view />
+	<div>
+		<router-view />
+	</div>
 </template>
 
 /*
@@ -49,28 +51,62 @@
 */
 
 <style lang="stylus">
+	/* ------------------------------------------ */
+
 	:root {
 		/* https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables */
 		--bgcolor: black;
-		--text-plain: #630 /*#080*/;
-		--text-bold: #636 /*369*/;
-		--text-code: #606 /*#75f*/;
-		--text-heading: #6f3812 /*#D2691E #085*/;
-		--link-plain: #660 /*#277EF5*/;
-		--link-visited: #9a34b7; /* #C32FED */
-		--link-hover: #A52A2A /*#FF4040*/;
-		--border-default: #410 /*#0a0*/;
+		--text-plain: #630;
+		--text-bold: #636;
+		--text-code: #606;
+		--text-heading: #410;
+		--text-meta: var(--text-heading);
+		--link-plain: #660;
+		--link-visited: #9a34b7;
+		--link-hover: #a52a2a;
+		--border-default: var(--text-heading);
 		--border-light: var(--text-plain);
 		--input-disabled: #c00;
+		/*
+			not currently used in chrome.stylus but i still like them:
+				dimmed light blue
+				#369
+				purple (blue-tinged)
+				#75f
+				orange (too bright)
+				#d2691e
+				green (mildly aqua? blue-tinged)
+				#085
+				red (orange-tinged? salmon? coral? idk, lol.)
+				#ff4040
+		*/
 	}
 
+	/* ------------------------------------------ */
+
 	html, body {
-		background: black;
+		background: var(--bgcolor);
 		color: var(--text-plain);
-		text-align: center;
 	}
 
 	a, a:link, a *, a:link * { color: var(--link-plain); }
 	a:visited, a:visited * { color: var(--link-visited); }
 	a:hover, a:hover * { color: var(--link-hover); }
+
+	.title.is-4 { color: var(--text-heading); }
+
+	/* ------------------------------------------ */
+
+	.section-border {
+		border: dotted 1px var(--border-default);
+	}
+
+	.nav {
+		text-align: center;
+		border-width: 0 0 1px 0;
+		padding: 0.5em;
+		margin-bottom: 1em;
+	}
+
+	/* ------------------------------------------ */
 </style>

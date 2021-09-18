@@ -1,4 +1,5 @@
 // see: fullstack-vue-book-v3-r13-basic-code\routing\shopping_cart\vue.config.js
+// interesting but not needed here: https://stackoverflow.com/questions/57520428/how-to-configure-a-webpack-proxy-for-multiple-urls-efficiently
 
 module.exports = {
 	devServer: {
@@ -16,6 +17,13 @@ module.exports = {
 				// pathRewrite: {
 				// 	'^/music-json': ''
 				// }
+			},
+			'/api': {
+				target: 'http://localhost:3000/',
+				changeOrigin: true,
+				pathRewrite: {
+					'^/api': ''
+				}
 			}
 		}
 	}

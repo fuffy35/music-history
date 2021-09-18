@@ -30,4 +30,5 @@ pnpm-debug.log*
 
 
 # self-util stuff:
-fuffy35-music-history.url
+git-music-history.url
+server/*.json
